@@ -48,3 +48,9 @@ jobs:
           git add update.json
           git commit -m "auto: update version to ${{ github.event.release.tag_name }}" || exit 0
           git push origin main
+
+      # 6. jsDelivr CDN Cache ని Purge చేయడం (తక్షణ ఆటోమేటిక్ రీఫ్రెష్ కోసం)
+      - name: Purge jsDelivr Cache
+        run: |
+          curl -i https://purge.jsdelivr.net/gh/kprabhupaul/rclibraries/update.json
+          curl -i https://purge.jsdelivr.net/gh/kprabhupaul/rclibraries@main/update.json
