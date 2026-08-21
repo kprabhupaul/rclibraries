@@ -1,0 +1,46 @@
+name: Auto Package & Update JSON on Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release-and-update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # rc-libraries ఫోల్డర్‌ను మాత్రమే zip చేయడం
+      - name: Build Clean Plugin ZIP
+        run: |
+          zip -r rc-libraries.zip rc-libraries/
+
+      # Release Assets లోకి rc-libraries.zip అప్‌లోడ్ చేయడం
+      - name: Upload ZIP to Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: rc-libraries.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # main బ్రాంచ్‌లోని update.json ను అప్‌డేట్ చేయడం
+      - name: Update update.json File
+        run: |
+          TAG_NAME="${{ github.event.release.tag_name }}"
+          DOWNLOAD_URL="https://github.com/${{ github.repository }}/releases/download/${TAG_NAME}/rc-libraries.zip"
+          
+          jq --arg v "$TAG_NAME" --arg u "$DOWNLOAD_URL" \
+            '.version = $v | .download_url = $u' update.json > temp.json && mv temp.json update.json
+
+      # మార్పులను main బ్రాంచ్‌లోకి పుష్ చేయడం
+      - name: Commit and Push update.json
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add update.json
+          git commit -m "auto: update version to ${{ github.event.release.tag_name }}" || exit 0
+          git push origin main
