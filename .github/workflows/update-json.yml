@@ -11,15 +11,19 @@ jobs:
       contents: write
 
     steps:
+      # 1. Main బ్రాంచ్‌ను సరైన Checkout విధానంలోకి తీసుకోవడం
       - name: Checkout Source Code
         uses: actions/checkout@v4
+        with:
+          ref: 'main'
+          fetch-depth: 0
 
-      # rc-libraries ఫోల్డర్‌ను మాత్రమే zip చేయడం
+      # 2. rc-libraries ఫోల్డర్‌ను zip చేయడం
       - name: Build Clean Plugin ZIP
         run: |
           zip -r rc-libraries.zip rc-libraries/
 
-      # Release Assets లోకి rc-libraries.zip అప్‌లోడ్ చేయడం
+      # 3. Release Assets లోకి ZIP అప్‌లోడ్ చేయడం
       - name: Upload ZIP to Release Assets
         uses: softprops/action-gh-release@v2
         with:
@@ -27,7 +31,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # main బ్రాంచ్‌లోని update.json ను అప్‌డేట్ చేయడం
+      # 4. update.json ఫైల్‌ను అప్‌డేట్ చేయడం
       - name: Update update.json File
         run: |
           TAG_NAME="${{ github.event.release.tag_name }}"
@@ -36,7 +40,7 @@ jobs:
           jq --arg v "$TAG_NAME" --arg u "$DOWNLOAD_URL" \
             '.version = $v | .download_url = $u' update.json > temp.json && mv temp.json update.json
 
-      # మార్పులను main బ్రాంచ్‌లోకి పుష్ చేయడం
+      # 5. మార్పులను Commit చేసి Main బ్రాంచ్‌కి Push చేయడం
       - name: Commit and Push update.json
         run: |
           git config --global user.name "github-actions[bot]"
