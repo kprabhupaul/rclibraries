@@ -74,8 +74,3 @@ RC Libraries is licensed under the [MIT License](LICENSE).
 **Pratap Kumar Kotti**
 
 - GitHub: https://github.com/kprabhupaul
-
-## Related Libraries
-
-- Fexios: https://github.com/kprabhupaul/fexios
-- Simal: https://github.com/kprabhupaul/simal
