@@ -1,2 +1,2 @@
 # RC Libraries
-A lightweight plugin for most used JS and CSS Libraries to enable at frontend and/or backend conveniently. 
+Manage and enqueue RC Libraries (CSS & JavaScript) on the WordPress frontend and backend.
