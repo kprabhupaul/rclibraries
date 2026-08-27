@@ -1,0 +1,195 @@
+/* =========================================================
+   Simal.js
+   SweetAlert2 Alternative using native <dialog>
+   ========================================================= */
+
+.simal-dialog {
+    width: min(90vw, 420px);
+    max-width: 420px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: transparent;
+    overflow: visible;
+    box-sizing: border-box;
+}
+
+.simal-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+}
+
+.simal-container {
+    width: 100%;
+    padding: 28px;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #212529;
+    text-align: center;
+    box-sizing: border-box;
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    animation: simal-show 0.2s ease-out;
+}
+
+.simal-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 18px;
+    border: 4px solid currentColor;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.simal-icon-symbol {
+    font-size: 42px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.simal-icon-success {
+    color: #28a745;
+}
+
+.simal-icon-error {
+    color: #dc3545;
+}
+
+.simal-icon-warning {
+    color: #f0ad00;
+}
+
+.simal-icon-info {
+    color: #0d6efd;
+}
+
+.simal-icon-question {
+    color: #6f42c1;
+}
+
+.simal-title {
+    margin: 0 0 10px;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.simal-content {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555555;
+}
+
+.simal-actions {
+    margin-top: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.simal-button {
+    min-width: 80px;
+    padding: 9px 18px;
+    border: 0;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    cursor: pointer;
+    transition:
+        background-color 0.15s ease,
+        opacity 0.15s ease,
+        transform 0.1s ease;
+}
+
+.simal-button:hover {
+    opacity: 0.9;
+}
+
+.simal-button:active {
+    transform: scale(0.97);
+}
+
+.simal-button:focus-visible {
+    outline: 3px solid rgba(13, 110, 253, 0.25);
+    outline-offset: 2px;
+}
+
+.simal-confirm-button {
+    background: #0d6efd;
+    color: #ffffff;
+}
+
+.simal-cancel-button {
+    background: #6c757d;
+    color: #ffffff;
+}
+
+.simal-deny-button {
+    background: #dc3545;
+    color: #ffffff;
+}
+
+
+/* ---------------------------------------------------------
+   Animation
+   --------------------------------------------------------- */
+
+@keyframes simal-show {
+
+    from {
+        opacity: 0;
+        transform: scale(0.92);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* ---------------------------------------------------------
+   Mobile
+   --------------------------------------------------------- */
+
+@media (max-width: 480px) {
+
+    .simal-dialog {
+        width: calc(100vw - 30px);
+    }
+
+    .simal-container {
+        padding: 24px 20px;
+    }
+
+    .simal-title {
+        font-size: 21px;
+    }
+
+    .simal-content {
+        font-size: 15px;
+    }
+
+    .simal-actions {
+        gap: 8px;
+    }
+
+    .simal-button {
+        min-width: 75px;
+        padding: 8px 15px;
+    }
+
+}
