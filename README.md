@@ -79,7 +79,3 @@ RC Libraries is licensed under the [MIT License](LICENSE).
 
 - Fexios: https://github.com/kprabhupaul/fexios
 - Simal: https://github.com/kprabhupaul/simal
-
-## Status
-
-RC Libraries is currently under development.
